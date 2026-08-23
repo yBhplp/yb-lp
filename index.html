@@ -152,6 +152,10 @@
   @media (max-width:520px){ .hook-br{ display:inline; } }
   .hero-visual{ position:relative; min-height:460px; }
   @media (max-width:960px){ .hero-visual{ margin-top:64px; min-height:340px; } }
+  .vortex-mount{
+    -webkit-mask-image:radial-gradient(closest-side, #000 55%, transparent 100%);
+    mask-image:radial-gradient(closest-side, #000 55%, transparent 100%);
+  }
   h1{
     position:relative;
     font-family:var(--font-disp); font-weight:900; font-size:clamp(37px,4.6vw,64px);
@@ -467,7 +471,7 @@
         </div>
 
         <div class="hero-visual">
-          <div id="vortex-mount" style="position:absolute; inset:0; z-index:0; pointer-events:none;"></div>
+          <div id="vortex-mount" class="vortex-mount" style="position:absolute; inset:-12%; z-index:0; pointer-events:none;"></div>
         </div>
       </div>
     </div>
