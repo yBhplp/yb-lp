@@ -557,7 +557,8 @@
         </div>
 
         <div class="hero-visual">
-          <div class="video-card reveal tilt" data-tilt-base="3">
+          <div id="vortex-mount" style="position:absolute; inset:-18% -22%; z-index:0; pointer-events:none;"></div>
+          <div class="video-card reveal tilt" data-tilt-base="3" style="position:relative; z-index:1;">
             <div class="mock-top">
               <span>reel_construction_2026.mp4</span>
               <div class="dots"><span></span><span></span><span></span></div>
@@ -1143,6 +1144,13 @@
     });
   }
 })();
+</script>
+<script type="module">
+  import { mountVortex } from "./vortex.js";
+  var mount = document.getElementById("vortex-mount");
+  if (mount) {
+    mountVortex(mount, { dotOptions: { count: 4000 }, cometOptions: { count: 6 } });
+  }
 </script>
 
 </body>
