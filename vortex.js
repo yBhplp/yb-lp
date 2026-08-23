@@ -1,6 +1,6 @@
 // Vortex — vanilla JS port of the Originkit React/Three.js component for
 // quick comparison inside a plain HTML page (no React/JSX, no bundler).
-import * as THREE from "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js";
+import * as THREE from "./three.module.js";
 
 const TAU = Math.PI * 2;
 const PX_PER_WORLD = 60;
