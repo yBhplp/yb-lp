@@ -77,13 +77,9 @@
   h1{ font-family:var(--font-disp); font-weight:900; font-size:clamp(28px,4.2vw,42px); line-height:1.4; margin-top:16px; }
   .lead{ margin-top:16px; font-size:16px; color:var(--text-dim); max-width:60ch; }
 
-  .plan-block{ margin-top:72px; scroll-margin-top:96px; }
-  .plan-block:first-of-type{ margin-top:48px; }
-  .plan-block-top{ margin-bottom:22px; }
-  .plan-block-title{ font-family:var(--font-disp); font-weight:900; font-size:clamp(24px,3vw,32px); margin-top:6px; }
-  .plan-block-layout{ display:grid; grid-template-columns:340px 1fr; gap:28px; align-items:start; }
-  @media (max-width:900px){ .plan-block-layout{ grid-template-columns:1fr; } }
-  .plan-scope{ padding-top:2px; }
+  .plan-cards-grid{ margin-top:48px; display:grid; grid-template-columns:repeat(4,1fr); gap:20px; align-items:stretch; }
+  @media (max-width:980px){ .plan-cards-grid{ grid-template-columns:repeat(2,1fr); } }
+  @media (max-width:600px){ .plan-cards-grid{ grid-template-columns:1fr; } }
   .scope-heading{ font-family:var(--font-disp); font-weight:700; font-size:15px; color:var(--text); }
   .plan-divider{ margin:64px 0 0; border:none; border-top:1px solid rgba(255,255,255,0.08); }
 
@@ -120,9 +116,9 @@
   .subhead h2{ font-family:var(--font-disp); font-weight:800; font-size:clamp(20px,2.6vw,26px); }
   .subhead .lead{ margin-top:10px; }
 
-  /* ---------- scope table (standard / option, spreadsheet-literal) ---------- */
+  /* ---------- scope table (4-plan comparison matrix) ---------- */
   .scope-table-wrap{ margin-top:14px; overflow-x:auto; border:1px solid rgba(255,255,255,0.1); border-radius:14px; -webkit-overflow-scrolling:touch; }
-  .scope-table{ min-width:560px; width:100%; border-collapse:collapse; font-size:12.5px; }
+  .scope-table{ min-width:760px; width:100%; border-collapse:collapse; font-size:12.5px; }
   .scope-table thead th{
     text-align:left; font-family:var(--font-num); font-weight:700; font-size:10.5px; letter-spacing:0.04em;
     text-transform:uppercase; color:var(--text-dim); background:rgba(255,255,255,0.04);
@@ -132,26 +128,13 @@
   .scope-table tbody tr:last-child td{ border-bottom:none; }
   .scope-table .cat{ color:var(--text); font-weight:700; white-space:nowrap; }
   .scope-table .item{ color:var(--text); }
-  .scope-table .credit{ font-family:var(--font-num); color:var(--cyan); white-space:nowrap; }
-  .scope-table .lead-time{ white-space:nowrap; font-size:11.5px; }
   .scope-table .note-cell{ font-size:11px; color:var(--text-dim); opacity:0.85; }
-  .scope-table tr.row-included{ background:rgba(77,227,240,0.03); }
-  .scope-table tr.row-option{ background:transparent; }
-  .scope-table tr.diff-standard td{ box-shadow:inset 3px 0 0 var(--blue); background:rgba(61,111,242,0.08); }
-  .scope-table tr.diff-premium td{ box-shadow:inset 3px 0 0 var(--gold); background:rgba(242,184,77,0.08); }
-  .scope-legend{ margin-top:10px; display:flex; gap:16px; flex-wrap:wrap; font-size:11.5px; color:var(--text-dim); }
-  .scope-legend span{ display:inline-flex; align-items:center; gap:6px; }
-  .scope-legend .dot{ width:9px; height:9px; border-radius:2px; flex-shrink:0; }
-  .scope-legend .dot.standard{ background:var(--blue); }
-  .scope-legend .dot.premium{ background:var(--gold); }
-  .scope-table tr.section-row td{
-    padding:9px 12px; font-weight:700; font-size:11px; letter-spacing:0.03em; color:var(--cyan);
-    background:rgba(77,227,240,0.1); border-bottom:1px solid rgba(77,227,240,0.2);
-  }
-  .scope-table tr.section-row.opt td{ color:var(--text-dim); background:rgba(255,255,255,0.05); border-bottom:1px solid rgba(255,255,255,0.1); }
+  .scope-table td.v{ font-family:var(--font-num); text-align:center; white-space:nowrap; }
+  .scope-table td.v.cr{ color:var(--cyan); font-weight:700; }
+  .scope-table td.v.quote{ color:var(--text-dim); font-size:11.5px; font-weight:400; }
+  .scope-table td.v.na{ color:var(--text-dim); opacity:0.35; }
   .scope-rule{ margin-top:20px; padding:16px 18px; border-radius:12px; background:rgba(77,227,240,0.06); border:1px solid rgba(77,227,240,0.2); font-size:13.5px; color:var(--text); }
   .scope-rule strong{ color:var(--cyan); }
-  .scope-note{ margin-top:10px; font-size:12px; color:var(--text-dim); }
 
   .rule-list{ margin-top:24px; list-style:none; counter-reset:rule; display:flex; flex-direction:column; gap:14px; max-width:640px; }
   .rule-list li{ counter-increment:rule; position:relative; padding-left:34px; font-size:15px; color:var(--text-dim); }
@@ -198,350 +181,122 @@
     <h1>詳細なプラン一覧</h1>
     <p class="lead">各プランでご利用いただけるクレジット数・MTG頻度・対応範囲の目安です。貴社の発信量や体制に合わせて、最適なプランをお選びください。内容は初回の無料相談ですり合わせの上、調整も可能です。</p>
 
-    <section id="light" class="plan-block">
-      <div class="plan-block-top">
+    <div class="plan-cards-grid">
+      <div class="glow-card"><div class="glow-card-inner plan-detail">
         <span class="eyebrow">Plan 01</span>
-        <h2 class="plan-block-title">ライト</h2>
-      </div>
-      <div class="plan-block-layout">
-        <div class="glow-card"><div class="glow-card-inner plan-detail">
-          <div class="name">ライト</div>
-          <div class="price">¥200,000<span>/月（税別）</span></div>
-          <span class="fee-badge">初期費用 0円</span>
-          <div class="meta-list">
-            <div class="meta-row"><span class="k">クレジット</span><span class="v">100cr/月</span></div>
-            <div class="meta-row"><span class="k">MTG頻度</span><span class="v">月1回・30分（簡易MTG）</span></div>
-            <div class="meta-row"><span class="k">向いている企業</span><span class="v">まずはお試しで始めたい会社</span></div>
-          </div>
-          <h4>標準対応の範囲</h4>
-          <p class="desc">動画・画像制作を中心に、まずは小さく発信を始められる内容です。</p>
-          <h4>主軸サービス目安</h4>
-          <ul>
-            <li>ショート動画 月1本</li>
-            <li>画像制作 月3点</li>
-            <li>現地撮影は別料金</li>
-          </ul>
-          <h4>コミュニケーション</h4>
-          <p class="desc">Slackで運用。月に一度の簡易MTGで当月の方針とクレジット配分を確認します。修正は原則2回まで。</p>
-          <div class="btns">
-            <a class="pill pill-outline pill-sm" href="contact.html?plan=light">このプランで申し込む <span class="arrow">›</span></a>
-          </div>
-        </div></div>
-
-        <div class="plan-scope">
-          <h3 class="scope-heading">標準対応・オプション表</h3>
-          <div class="scope-table-wrap">
-          <table class="scope-table">
-            <thead><tr><th>分類</th><th>項目</th><th>クレジット</th><th>納期</th><th>備考</th></tr></thead>
-            <tbody>
-              <tr class="section-row"><td colspan="5">標準対応（月額内に含める）</td></tr>
-              <tr class="row-included"><td><span class="cat">動画</span></td><td class="item">ショート動画編集</td><td class="credit">40cr</td><td class="lead-time">素材揃い次第　5営業日</td><td class="note-cell">素材支給前提</td></tr>
-              <tr class="row-included"><td></td><td class="item">動画の切り抜き・再編集</td><td class="credit">40cr</td><td class="lead-time">素材揃い次第　5営業日</td><td class="note-cell"></td></tr>
-              <tr class="row-included"><td></td><td class="item">テロップ挿入</td><td class="credit">10cr</td><td class="lead-time">素材揃い次第　2営業日</td><td class="note-cell"></td></tr>
-              <tr class="row-included"><td><span class="cat">画像</span></td><td class="item">SNS画像制作/動画用サムネイル</td><td class="credit">20cr</td><td class="lead-time">3営業日</td><td class="note-cell"></td></tr>
-              <tr class="row-included"><td></td><td class="item">投稿クリエイティブ</td><td class="credit">20cr</td><td class="lead-time">3営業日</td><td class="note-cell"></td></tr>
-              <tr class="row-included"><td></td><td class="item">バナー制作</td><td class="credit">30cr</td><td class="lead-time">5営業日</td><td class="note-cell"></td></tr>
-              <tr class="row-included"><td></td><td class="item">片面チラシA4(パンフレット含む)</td><td class="credit">30cr</td><td class="lead-time">5営業日</td><td class="note-cell"></td></tr>
-              <tr class="row-included"><td><span class="cat">資料</span></td><td class="item">営業資料、提案資料などの資料作成</td><td class="credit">1P／10cr</td><td class="lead-time">5営業日</td><td class="note-cell"></td></tr>
-              <tr class="row-included"><td></td><td class="item">既存営業資料の軽修正</td><td class="credit">20cr</td><td class="lead-time">3営業日</td><td class="note-cell"></td></tr>
-              <tr class="row-included"><td></td><td class="item">会社案内の軽修正</td><td class="credit">20cr</td><td class="lead-time">3営業日</td><td class="note-cell"></td></tr>
-              <tr class="row-included"><td><span class="cat">デザイン</span></td><td class="item">ノベルティデザイン/発注</td><td class="credit">50cr</td><td class="lead-time">5営業日</td><td class="note-cell">物の金額は別途請求</td></tr>
-              <tr class="row-included"><td></td><td class="item">名刺デザイン制作</td><td class="credit">50cr</td><td class="lead-time">5営業日</td><td class="note-cell">物の金額は別途請求</td></tr>
-              <tr class="row-included"><td></td><td class="item">ロゴ開発</td><td class="credit">70cr</td><td class="lead-time">5営業日</td><td class="note-cell"></td></tr>
-              <tr class="row-included"><td><span class="cat">修正</span></td><td class="item">各種制作物の修正</td><td class="credit">5cr</td><td class="lead-time">2営業日</td><td class="note-cell">2回まで無料。3回目から5cr。</td></tr>
-              <tr class="row-included"><td><span class="cat">特急</span></td><td class="item">納期短縮</td><td class="credit">標準納期より-1日/10cr</td><td class="lead-time">2営業日</td><td class="note-cell"></td></tr>
-              <tr class="section-row opt"><td colspan="5">オプション（別料金）</td></tr>
-              <tr class="row-option"><td><span class="cat">動画</span></td><td class="item">撮影</td><td class="credit">都度お見積り</td><td class="lead-time">内容により変動</td><td class="note-cell"></td></tr>
-              <tr class="row-option"><td></td><td class="item">ドローン撮影</td><td class="credit">都度見積</td><td class="lead-time">内容により変動</td><td class="note-cell"></td></tr>
-              <tr class="row-option"><td></td><td class="item">PR動画の新規企画制作</td><td class="credit">都度見積</td><td class="lead-time">内容により変動</td><td class="note-cell"></td></tr>
-              <tr class="row-option"><td></td><td class="item">長尺動画</td><td class="credit">都度見積</td><td class="lead-time">内容により変動</td><td class="note-cell"></td></tr>
-              <tr class="row-option"><td></td><td class="item">採用動画制作</td><td class="credit">都度見積</td><td class="lead-time">内容により変動</td><td class="note-cell"></td></tr>
-              <tr class="row-option"><td></td><td class="item">CM制作</td><td class="credit">都度見積</td><td class="lead-time">内容により変動</td><td class="note-cell"></td></tr>
-              <tr class="row-option"><td><span class="cat">Web</span></td><td class="item">新規LP制作</td><td class="credit">都度見積</td><td class="lead-time">内容により変動</td><td class="note-cell"></td></tr>
-              <tr class="row-option"><td></td><td class="item">新規サイト制作</td><td class="credit">都度見積</td><td class="lead-time">内容により変動</td><td class="note-cell"></td></tr>
-              <tr class="row-option"><td></td><td class="item">全面リニューアル</td><td class="credit">都度見積</td><td class="lead-time">内容により変動</td><td class="note-cell"></td></tr>
-              <tr class="row-option"><td><span class="cat">運用</span></td><td class="item">広告運用</td><td class="credit">都度見積</td><td class="lead-time">内容により変動</td><td class="note-cell"></td></tr>
-              <tr class="row-option"><td></td><td class="item">SNS運用代行</td><td class="credit">都度見積</td><td class="lead-time">内容により変動</td><td class="note-cell"></td></tr>
-              <tr class="row-option"><td></td><td class="item">コメント返信対応</td><td class="credit">都度見積</td><td class="lead-time">内容により変動</td><td class="note-cell"></td></tr>
-              <tr class="row-option"><td></td><td class="item">詳細分析レポート</td><td class="credit">都度見積</td><td class="lead-time">内容により変動</td><td class="note-cell"></td></tr>
-              <tr class="row-option"><td><span class="cat">戦略</span></td><td class="item">採用戦略設計</td><td class="credit">都度見積</td><td class="lead-time">内容により変動</td><td class="note-cell"></td></tr>
-              <tr class="row-option"><td></td><td class="item">広報戦略設計</td><td class="credit">都度見積</td><td class="lead-time">内容により変動</td><td class="note-cell"></td></tr>
-              <tr class="row-option"><td><span class="cat">技術</span></td><td class="item">システム開発</td><td class="credit">都度見積</td><td class="lead-time">内容により変動</td><td class="note-cell"></td></tr>
-              <tr class="row-option"><td></td><td class="item">複雑な実装</td><td class="credit">都度見積</td><td class="lead-time">内容により変動</td><td class="note-cell"></td></tr>
-              <tr class="row-option"><td></td><td class="item">保守契約レベルの作業</td><td class="credit">都度見積</td><td class="lead-time">内容により変動</td><td class="note-cell"></td></tr>
-            </tbody>
-          </table>
-          </div>
-          <p class="scope-rule"><strong>線引きの目安：</strong>更新・修正・小規模制作は月額内、新規制作・重い案件・撮影・運用代行は別料金となります。</p>
+        <div class="name">ライト</div>
+        <div class="price">¥200,000<span>/月（税別）</span></div>
+        <span class="fee-badge">初期費用 0円</span>
+        <div class="meta-list">
+          <div class="meta-row"><span class="k">クレジット</span><span class="v">100cr/月</span></div>
+          <div class="meta-row"><span class="k">MTG頻度</span><span class="v">月1回・30分（簡易MTG）</span></div>
+          <div class="meta-row"><span class="k">向いている企業</span><span class="v">まずはお試しで始めたい会社</span></div>
         </div>
-      </div>
-    </section>
+        <div class="btns">
+          <a class="pill pill-outline pill-sm" href="contact.html?plan=light">このプランで申し込む <span class="arrow">›</span></a>
+        </div>
+      </div></div>
 
-    <hr class="plan-divider">
-
-    <section id="standard" class="plan-block">
-      <div class="plan-block-top">
+      <div class="glow-card"><div class="glow-card-inner plan-detail">
         <span class="eyebrow">Plan 02</span>
-        <h2 class="plan-block-title">スタンダード</h2>
-      </div>
-      <div class="plan-block-layout">
-        <div class="glow-card"><div class="glow-card-inner plan-detail">
-          <div class="name">スタンダード</div>
-          <div class="price">¥400,000<span>/月（税別）</span></div>
-          <span class="fee-badge">初期費用 0円</span>
-          <div class="meta-list">
-            <div class="meta-row"><span class="k">クレジット</span><span class="v">220cr/月</span></div>
-            <div class="meta-row"><span class="k">MTG頻度</span><span class="v">月1回・60分（伴走型MTG）</span></div>
-            <div class="meta-row"><span class="k">向いている企業</span><span class="v">継続発信の主力にしたい企業</span></div>
-          </div>
-          <h4>標準対応の範囲</h4>
-          <p class="desc">動画・画像に加え、LP/HPの軽微修正、月次での発信テーマ整理まで対応します。</p>
-          <h4>主軸サービス目安</h4>
-          <ul>
-            <li>ショート動画 月3本</li>
-            <li>画像制作 月5点</li>
-            <li>現地撮影は別料金</li>
-          </ul>
-          <h4>コミュニケーション</h4>
-          <p class="desc">Slackで運用。月に一度の伴走型MTGで当月の方針とクレジット配分を決定し、簡易レポートを共有します。修正は原則2回まで。</p>
-          <div class="btns">
-            <a class="pill pill-outline pill-sm" href="contact.html?plan=standard">このプランで申し込む <span class="arrow">›</span></a>
-          </div>
-        </div></div>
-
-        <div class="plan-scope">
-          <h3 class="scope-heading">標準対応・オプション表</h3>
-          <div class="scope-table-wrap">
-          <table class="scope-table">
-            <thead><tr><th>分類</th><th>項目</th><th>クレジット</th><th>納期</th><th>備考</th></tr></thead>
-            <tbody>
-              <tr class="section-row"><td colspan="5">標準対応（月額内に含める）</td></tr>
-              <tr class="row-included"><td><span class="cat">動画</span></td><td class="item">ショート動画編集</td><td class="credit">40cr</td><td class="lead-time">素材揃い次第　5営業日</td><td class="note-cell">素材支給前提</td></tr>
-              <tr class="row-included"><td></td><td class="item">動画の切り抜き・再編集</td><td class="credit">40cr</td><td class="lead-time">素材揃い次第　5営業日</td><td class="note-cell"></td></tr>
-              <tr class="row-included"><td></td><td class="item">テロップ挿入</td><td class="credit">10cr</td><td class="lead-time">素材揃い次第　2営業日</td><td class="note-cell"></td></tr>
-              <tr class="row-included"><td><span class="cat">画像</span></td><td class="item">SNS画像制作/動画用サムネイル</td><td class="credit">20cr</td><td class="lead-time">3営業日</td><td class="note-cell"></td></tr>
-              <tr class="row-included"><td></td><td class="item">投稿クリエイティブ</td><td class="credit">20cr</td><td class="lead-time">3営業日</td><td class="note-cell"></td></tr>
-              <tr class="row-included"><td></td><td class="item">バナー制作</td><td class="credit">30cr</td><td class="lead-time">5営業日</td><td class="note-cell"></td></tr>
-              <tr class="row-included"><td></td><td class="item">片面チラシA4(パンフレット含む)</td><td class="credit">30cr</td><td class="lead-time">5営業日</td><td class="note-cell"></td></tr>
-              <tr class="row-included"><td><span class="cat">資料</span></td><td class="item">営業資料、提案資料などの資料作成</td><td class="credit">1P／10cr</td><td class="lead-time">5営業日</td><td class="note-cell"></td></tr>
-              <tr class="row-included"><td></td><td class="item">既存営業資料の軽修正</td><td class="credit">20cr</td><td class="lead-time">3営業日</td><td class="note-cell"></td></tr>
-              <tr class="row-included"><td></td><td class="item">会社案内の軽修正</td><td class="credit">20cr</td><td class="lead-time">3営業日</td><td class="note-cell"></td></tr>
-              <tr class="row-included"><td><span class="cat">デザイン</span></td><td class="item">ノベルティデザイン/発注</td><td class="credit">50cr</td><td class="lead-time">5営業日</td><td class="note-cell">物の金額は別途請求</td></tr>
-              <tr class="row-included"><td></td><td class="item">名刺デザイン制作</td><td class="credit">50cr</td><td class="lead-time">5営業日</td><td class="note-cell">物の金額は別途請求</td></tr>
-              <tr class="row-included"><td></td><td class="item">ロゴ開発</td><td class="credit">70cr</td><td class="lead-time">5営業日</td><td class="note-cell"></td></tr>
-              <tr class="row-included diff-standard"><td><span class="cat">Web</span></td><td class="item">弊社作成のHP/LPの軽微修正</td><td class="credit">20cr</td><td class="lead-time">3営業日</td><td class="note-cell">小規模のみ/弊社作成分のみ</td></tr>
-              <tr class="row-included diff-standard"><td></td><td class="item">導線修正</td><td class="credit">40cr</td><td class="lead-time">5営業日</td><td class="note-cell"></td></tr>
-              <tr class="row-included diff-standard"><td></td><td class="item">画像差し替え</td><td class="credit">10cr</td><td class="lead-time">3営業日</td><td class="note-cell"></td></tr>
-              <tr class="row-included diff-standard"><td></td><td class="item">テキスト修正</td><td class="credit">10cr</td><td class="lead-time">3営業日</td><td class="note-cell"></td></tr>
-              <tr class="row-included diff-standard"><td><span class="cat">運用</span></td><td class="item">月次の発信テーマ整理</td><td class="credit">10cr</td><td class="lead-time">3営業日</td><td class="note-cell"></td></tr>
-              <tr class="row-included diff-standard"><td></td><td class="item">投稿テーマ相談</td><td class="credit">10cr</td><td class="lead-time">3営業日</td><td class="note-cell"></td></tr>
-              <tr class="row-included diff-standard"><td></td><td class="item">運用上の軽相談</td><td class="credit">10cr</td><td class="lead-time">3営業日</td><td class="note-cell"></td></tr>
-              <tr class="row-included"><td><span class="cat">修正</span></td><td class="item">各種制作物の修正</td><td class="credit">5cr</td><td class="lead-time">2営業日</td><td class="note-cell">2回まで無料。3回目から5cr。</td></tr>
-              <tr class="row-included"><td><span class="cat">特急</span></td><td class="item">納期短縮</td><td class="credit">標準納期より-1日/10cr</td><td class="lead-time">2営業日</td><td class="note-cell"></td></tr>
-              <tr class="section-row opt"><td colspan="5">オプション（別料金）</td></tr>
-              <tr class="row-option"><td><span class="cat">動画</span></td><td class="item">撮影</td><td class="credit">都度お見積り</td><td class="lead-time">内容により変動</td><td class="note-cell"></td></tr>
-              <tr class="row-option"><td></td><td class="item">ドローン撮影</td><td class="credit">都度見積</td><td class="lead-time">内容により変動</td><td class="note-cell"></td></tr>
-              <tr class="row-option"><td></td><td class="item">PR動画の新規企画制作</td><td class="credit">都度見積</td><td class="lead-time">内容により変動</td><td class="note-cell"></td></tr>
-              <tr class="row-option"><td></td><td class="item">長尺動画</td><td class="credit">都度見積</td><td class="lead-time">内容により変動</td><td class="note-cell"></td></tr>
-              <tr class="row-option"><td></td><td class="item">採用動画制作</td><td class="credit">都度見積</td><td class="lead-time">内容により変動</td><td class="note-cell"></td></tr>
-              <tr class="row-option"><td></td><td class="item">CM制作</td><td class="credit">都度見積</td><td class="lead-time">内容により変動</td><td class="note-cell"></td></tr>
-              <tr class="row-option"><td><span class="cat">Web</span></td><td class="item">新規LP制作</td><td class="credit">都度見積</td><td class="lead-time">内容により変動</td><td class="note-cell"></td></tr>
-              <tr class="row-option"><td></td><td class="item">新規サイト制作</td><td class="credit">都度見積</td><td class="lead-time">内容により変動</td><td class="note-cell"></td></tr>
-              <tr class="row-option"><td></td><td class="item">全面リニューアル</td><td class="credit">都度見積</td><td class="lead-time">内容により変動</td><td class="note-cell"></td></tr>
-              <tr class="row-option"><td><span class="cat">運用</span></td><td class="item">広告運用</td><td class="credit">都度見積</td><td class="lead-time">内容により変動</td><td class="note-cell"></td></tr>
-              <tr class="row-option"><td></td><td class="item">SNS運用代行</td><td class="credit">都度見積</td><td class="lead-time">内容により変動</td><td class="note-cell"></td></tr>
-              <tr class="row-option"><td></td><td class="item">コメント返信対応</td><td class="credit">都度見積</td><td class="lead-time">内容により変動</td><td class="note-cell"></td></tr>
-              <tr class="row-option"><td></td><td class="item">詳細分析レポート</td><td class="credit">都度見積</td><td class="lead-time">内容により変動</td><td class="note-cell"></td></tr>
-              <tr class="row-option"><td><span class="cat">戦略</span></td><td class="item">採用戦略設計</td><td class="credit">都度見積</td><td class="lead-time">内容により変動</td><td class="note-cell"></td></tr>
-              <tr class="row-option"><td></td><td class="item">広報戦略設計</td><td class="credit">都度見積</td><td class="lead-time">内容により変動</td><td class="note-cell"></td></tr>
-              <tr class="row-option"><td><span class="cat">技術</span></td><td class="item">システム開発</td><td class="credit">都度見積</td><td class="lead-time">内容により変動</td><td class="note-cell"></td></tr>
-              <tr class="row-option"><td></td><td class="item">複雑な実装</td><td class="credit">都度見積</td><td class="lead-time">内容により変動</td><td class="note-cell"></td></tr>
-              <tr class="row-option"><td></td><td class="item">保守契約レベルの作業</td><td class="credit">都度見積</td><td class="lead-time">内容により変動</td><td class="note-cell"></td></tr>
-            </tbody>
-          </table>
-          </div>
-          <div class="scope-legend"><span><span class="dot standard"></span>ライトプランにはない対応（スタンダードから追加）</span></div>
-          <p class="scope-rule"><strong>線引きの目安：</strong>更新・修正・小規模制作は月額内、新規制作・重い案件・撮影・運用代行は別料金となります。</p>
+        <div class="name">スタンダード</div>
+        <div class="price">¥400,000<span>/月（税別）</span></div>
+        <span class="fee-badge">初期費用 0円</span>
+        <div class="meta-list">
+          <div class="meta-row"><span class="k">クレジット</span><span class="v">220cr/月</span></div>
+          <div class="meta-row"><span class="k">MTG頻度</span><span class="v">月1回・60分（伴走型MTG）</span></div>
+          <div class="meta-row"><span class="k">向いている企業</span><span class="v">継続発信の主力にしたい企業</span></div>
         </div>
-      </div>
-    </section>
+        <div class="btns">
+          <a class="pill pill-outline pill-sm" href="contact.html?plan=standard">このプランで申し込む <span class="arrow">›</span></a>
+        </div>
+      </div></div>
 
-    <hr class="plan-divider">
-
-    <section id="premium" class="plan-block">
-      <div class="plan-block-top">
+      <div class="glow-card"><div class="glow-card-inner plan-detail">
         <span class="eyebrow">Plan 03</span>
-        <h2 class="plan-block-title">プレミアム</h2>
-      </div>
-      <div class="plan-block-layout">
-        <div class="glow-card"><div class="glow-card-inner plan-detail">
-          <div class="name">プレミアム</div>
-          <div class="price">¥800,000<span>/月（税別）</span></div>
-          <span class="fee-badge">初期費用 0円</span>
-          <div class="meta-list">
-            <div class="meta-row"><span class="k">クレジット</span><span class="v">460cr/月</span></div>
-            <div class="meta-row"><span class="k">MTG頻度</span><span class="v">月2回・各60分（伴走型MTG）</span></div>
-            <div class="meta-row"><span class="k">向いている企業</span><span class="v">発信を本気で回したい企業</span></div>
-          </div>
-          <h4>標準対応の範囲</h4>
-          <p class="desc">優先対応・横断運用に加え、採用発信やドローン撮影・3Dモデリングの相談まで幅広くカバーします。</p>
-          <h4>主軸サービス目安</h4>
-          <ul>
-            <li>ショート動画 月5本</li>
-            <li>画像制作 月5点</li>
-            <li>現地撮影込み</li>
-          </ul>
-          <h4>コミュニケーション</h4>
-          <p class="desc">Slackで運用。月に一度の伴走型MTGで当月の方針とクレジット配分を決定し、簡易レポートを共有します。修正は原則2回まで。<br>専任窓口を固定し、早い初動で対応。月内でのタスク再配分にも柔軟に対応します。</p>
-          <div class="btns">
-            <a class="pill pill-outline pill-sm" href="contact.html?plan=premium">このプランで申し込む <span class="arrow">›</span></a>
-          </div>
-        </div></div>
-
-        <div class="plan-scope">
-          <h3 class="scope-heading">標準対応・オプション表</h3>
-          <div class="scope-table-wrap">
-          <table class="scope-table">
-            <thead><tr><th>分類</th><th>項目</th><th>クレジット</th><th>納期</th><th>備考</th></tr></thead>
-            <tbody>
-              <tr class="section-row"><td colspan="5">標準対応（月額内に含める）</td></tr>
-              <tr class="row-included diff-premium"><td><span class="cat">動画</span></td><td class="item">ショート動画作成</td><td class="credit">80cr</td><td class="lead-time">素材揃い次第　5営業日</td><td class="note-cell">撮影・編集込。交通費別途</td></tr>
-              <tr class="row-included"><td></td><td class="item">ショート動画編集</td><td class="credit">40cr</td><td class="lead-time">素材揃い次第　5営業日</td><td class="note-cell">素材支給前提</td></tr>
-              <tr class="row-included"><td></td><td class="item">動画の切り抜き・再編集</td><td class="credit">40cr</td><td class="lead-time">素材揃い次第　5営業日</td><td class="note-cell"></td></tr>
-              <tr class="row-included"><td></td><td class="item">テロップ挿入</td><td class="credit">10cr</td><td class="lead-time">素材揃い次第　2営業日</td><td class="note-cell"></td></tr>
-              <tr class="row-included"><td><span class="cat">画像</span></td><td class="item">SNS画像制作/動画用サムネイル</td><td class="credit">20cr</td><td class="lead-time">3営業日</td><td class="note-cell"></td></tr>
-              <tr class="row-included"><td></td><td class="item">投稿クリエイティブ</td><td class="credit">20cr</td><td class="lead-time">3営業日</td><td class="note-cell"></td></tr>
-              <tr class="row-included"><td></td><td class="item">バナー制作</td><td class="credit">30cr</td><td class="lead-time">5営業日</td><td class="note-cell"></td></tr>
-              <tr class="row-included"><td></td><td class="item">片面チラシA4(パンフレット含む)</td><td class="credit">30cr</td><td class="lead-time">5営業日</td><td class="note-cell"></td></tr>
-              <tr class="row-included"><td><span class="cat">資料</span></td><td class="item">営業資料、提案資料などの資料作成</td><td class="credit">1P／10cr</td><td class="lead-time">5営業日</td><td class="note-cell"></td></tr>
-              <tr class="row-included"><td></td><td class="item">既存営業資料の軽修正</td><td class="credit">20cr</td><td class="lead-time">3営業日</td><td class="note-cell"></td></tr>
-              <tr class="row-included"><td></td><td class="item">会社案内の軽修正</td><td class="credit">20cr</td><td class="lead-time">3営業日</td><td class="note-cell"></td></tr>
-              <tr class="row-included"><td><span class="cat">デザイン</span></td><td class="item">ノベルティデザイン/発注</td><td class="credit">50cr</td><td class="lead-time">5営業日</td><td class="note-cell">物の金額は別途請求</td></tr>
-              <tr class="row-included"><td></td><td class="item">名刺デザイン制作</td><td class="credit">50cr</td><td class="lead-time">5営業日</td><td class="note-cell">物の金額は別途請求</td></tr>
-              <tr class="row-included"><td></td><td class="item">ロゴ開発</td><td class="credit">70cr</td><td class="lead-time">5営業日</td><td class="note-cell"></td></tr>
-              <tr class="row-included"><td><span class="cat">Web</span></td><td class="item">弊社作成のHP/LPの軽微修正</td><td class="credit">20cr</td><td class="lead-time">3営業日</td><td class="note-cell">小規模のみ/弊社作成分のみ</td></tr>
-              <tr class="row-included"><td></td><td class="item">導線修正</td><td class="credit">40cr</td><td class="lead-time">5営業日</td><td class="note-cell"></td></tr>
-              <tr class="row-included"><td></td><td class="item">画像差し替え</td><td class="credit">10cr</td><td class="lead-time">3営業日</td><td class="note-cell"></td></tr>
-              <tr class="row-included"><td></td><td class="item">テキスト修正</td><td class="credit">10cr</td><td class="lead-time">3営業日</td><td class="note-cell"></td></tr>
-              <tr class="row-included diff-premium"><td><span class="cat">運用</span></td><td class="item">広告運用</td><td class="credit">30cr</td><td class="lead-time">3営業日</td><td class="note-cell"></td></tr>
-              <tr class="row-included diff-premium"><td></td><td class="item">SNS運用代行</td><td class="credit">1つのSNSに対して<br>月50cr</td><td class="lead-time">3営業日</td><td class="note-cell"></td></tr>
-              <tr class="row-included diff-premium"><td></td><td class="item">コメント返信対応</td><td class="credit">1つのSNSに対して<br>月50cr</td><td class="lead-time">3営業日</td><td class="note-cell"></td></tr>
-              <tr class="row-included diff-premium"><td></td><td class="item">詳細分析レポート</td><td class="credit">1つのSNSに対して<br>月50cr</td><td class="lead-time">3営業日</td><td class="note-cell"></td></tr>
-              <tr class="row-included diff-premium"><td><span class="cat">戦略</span></td><td class="item">採用戦略設計</td><td class="credit">1つのSNSに対して<br>月50cr</td><td class="lead-time">3営業日</td><td class="note-cell"></td></tr>
-              <tr class="row-included diff-premium"><td></td><td class="item">広報戦略設計</td><td class="credit">1つのSNSに対して<br>月50cr</td><td class="lead-time">3営業日</td><td class="note-cell"></td></tr>
-              <tr class="row-included"><td><span class="cat">修正</span></td><td class="item">各種制作物の修正</td><td class="credit">5cr</td><td class="lead-time">2営業日</td><td class="note-cell">2回まで無料。3回目から5cr。</td></tr>
-              <tr class="row-included"><td><span class="cat">特急</span></td><td class="item">納期短縮</td><td class="credit">標準納期より-1日/10cr</td><td class="lead-time">2営業日</td><td class="note-cell"></td></tr>
-              <tr class="section-row opt"><td colspan="5">オプション（別料金）</td></tr>
-              <tr class="row-option"><td><span class="cat">動画</span></td><td class="item">撮影</td><td class="credit">都度お見積り</td><td class="lead-time">内容により変動</td><td class="note-cell"></td></tr>
-              <tr class="row-option"><td></td><td class="item">ドローン撮影</td><td class="credit">都度見積</td><td class="lead-time">内容により変動</td><td class="note-cell"></td></tr>
-              <tr class="row-option"><td></td><td class="item">PR動画の新規企画制作</td><td class="credit">都度見積</td><td class="lead-time">内容により変動</td><td class="note-cell"></td></tr>
-              <tr class="row-option"><td></td><td class="item">長尺動画</td><td class="credit">都度見積</td><td class="lead-time">内容により変動</td><td class="note-cell"></td></tr>
-              <tr class="row-option"><td></td><td class="item">採用動画制作</td><td class="credit">都度見積</td><td class="lead-time">内容により変動</td><td class="note-cell"></td></tr>
-              <tr class="row-option"><td></td><td class="item">CM制作</td><td class="credit">都度見積</td><td class="lead-time">内容により変動</td><td class="note-cell"></td></tr>
-              <tr class="row-option"><td><span class="cat">Web</span></td><td class="item">新規LP制作</td><td class="credit">都度見積</td><td class="lead-time">内容により変動</td><td class="note-cell"></td></tr>
-              <tr class="row-option"><td></td><td class="item">新規サイト制作</td><td class="credit">都度見積</td><td class="lead-time">内容により変動</td><td class="note-cell"></td></tr>
-              <tr class="row-option"><td></td><td class="item">全面リニューアル</td><td class="credit">都度見積</td><td class="lead-time">内容により変動</td><td class="note-cell"></td></tr>
-              <tr class="row-option"><td><span class="cat">技術</span></td><td class="item">システム開発</td><td class="credit">都度見積</td><td class="lead-time">内容により変動</td><td class="note-cell"></td></tr>
-              <tr class="row-option"><td></td><td class="item">複雑な実装</td><td class="credit">都度見積</td><td class="lead-time">内容により変動</td><td class="note-cell"></td></tr>
-              <tr class="row-option"><td></td><td class="item">保守契約レベルの作業</td><td class="credit">都度見積</td><td class="lead-time">内容により変動</td><td class="note-cell"></td></tr>
-            </tbody>
-          </table>
-          </div>
-          <div class="scope-legend"><span><span class="dot premium"></span>スタンダードにはないプレミアム限定の対応</span></div>
-          <p class="scope-rule"><strong>線引きの目安：</strong>更新・修正・小規模制作は月額内、新規制作・重い案件・撮影・運用代行は別料金となります。</p>
+        <div class="name">プレミアム</div>
+        <div class="price">¥800,000<span>/月（税別）</span></div>
+        <span class="fee-badge">初期費用 0円</span>
+        <div class="meta-list">
+          <div class="meta-row"><span class="k">クレジット</span><span class="v">460cr/月</span></div>
+          <div class="meta-row"><span class="k">MTG頻度</span><span class="v">月2回・各60分（伴走型MTG）</span></div>
+          <div class="meta-row"><span class="k">向いている企業</span><span class="v">発信を本気で回したい企業</span></div>
         </div>
-      </div>
-    </section>
+        <div class="btns">
+          <a class="pill pill-outline pill-sm" href="contact.html?plan=premium">このプランで申し込む <span class="arrow">›</span></a>
+        </div>
+      </div></div>
 
-    <hr class="plan-divider">
-
-    <section id="flex" class="plan-block">
-      <div class="plan-block-top">
+      <div class="glow-card"><div class="glow-card-inner plan-detail">
         <span class="eyebrow">Plan 04</span>
-        <h2 class="plan-block-title">フレックス</h2>
-      </div>
-      <div class="plan-block-layout">
-        <div class="glow-card"><div class="glow-card-inner plan-detail">
-          <div class="name">フレックス</div>
-          <div class="price">¥400,000<span>/回（税別）</span></div>
-          <span class="fee-badge">初期費用 0円</span>
-          <div class="meta-list">
-            <div class="meta-row"><span class="k">クレジット</span><span class="v">150cr（買い切り）</span></div>
-            <div class="meta-row"><span class="k">MTG頻度</span><span class="v">1回</span></div>
-            <div class="meta-row"><span class="k">向いている企業</span><span class="v">施策がすでに明確な企業</span></div>
-          </div>
-          <h4>標準対応の範囲</h4>
-          <p class="desc">動画・画像に加え、LP/HPの軽微修正まで、ご指定の施策に対応します。</p>
-          <h4>主軸サービス目安</h4>
-          <ul>
-            <li>ショート動画 3本</li>
-            <li>画像制作 5点</li>
-            <li>現地撮影は別料金</li>
-          </ul>
-          <h4>コミュニケーション</h4>
-          <p class="desc">月額プランと異なり、クレジットの買い切り型です。単発施策をピンポイントで依頼したい場合に。</p>
-          <div class="btns">
-            <a class="pill pill-outline pill-sm" href="contact.html?plan=flex">このプランで申し込む <span class="arrow">›</span></a>
-          </div>
-        </div></div>
+        <div class="name">フレックス</div>
+        <div class="price">¥400,000<span>/回（税別）</span></div>
+        <span class="fee-badge">初期費用 0円</span>
+        <div class="meta-list">
+          <div class="meta-row"><span class="k">クレジット</span><span class="v">150cr（買い切り）</span></div>
+          <div class="meta-row"><span class="k">MTG頻度</span><span class="v">1回</span></div>
+          <div class="meta-row"><span class="k">向いている企業</span><span class="v">施策がすでに明確な企業</span></div>
+        </div>
+        <div class="btns">
+          <a class="pill pill-outline pill-sm" href="contact.html?plan=flex">このプランで申し込む <span class="arrow">›</span></a>
+        </div>
+      </div></div>
+    </div>
 
-        <div class="plan-scope">
-          <h3 class="scope-heading">標準対応・オプション表</h3>
-          <p class="scope-note">フレックスプランはスタンダードプランと同じ対応範囲を、クレジット買い切り型でご利用いただけます。</p>
+    <div class="subhead">
+      <span class="eyebrow">Scope</span>
+      <h2 style="margin-top:10px;">標準対応・オプション表</h2>
+      <p class="lead">4プランの対応範囲とクレジットの違いを、1つの表にまとめました。「都度見積」は月額に含まれないオプション対応、「—」はそのプランでは提供していない項目です。</p>
+    </div>
           <div class="scope-table-wrap">
-          <table class="scope-table">
-            <thead><tr><th>分類</th><th>項目</th><th>クレジット</th><th>納期</th><th>備考</th></tr></thead>
+          <table class="scope-table plan-matrix">
+            <thead><tr><th>分類</th><th>項目</th><th>ライト</th><th>スタンダード</th><th>プレミアム</th><th>フレックス</th><th>備考</th></tr></thead>
             <tbody>
-              <tr class="section-row"><td colspan="5">標準対応（月額内に含める）</td></tr>
-              <tr class="row-included"><td><span class="cat">動画</span></td><td class="item">ショート動画編集</td><td class="credit">40cr</td><td class="lead-time">素材揃い次第　5営業日</td><td class="note-cell">素材支給前提</td></tr>
-              <tr class="row-included"><td></td><td class="item">動画の切り抜き・再編集</td><td class="credit">40cr</td><td class="lead-time">素材揃い次第　5営業日</td><td class="note-cell"></td></tr>
-              <tr class="row-included"><td></td><td class="item">テロップ挿入</td><td class="credit">10cr</td><td class="lead-time">素材揃い次第　2営業日</td><td class="note-cell"></td></tr>
-              <tr class="row-included"><td><span class="cat">画像</span></td><td class="item">SNS画像制作/動画用サムネイル</td><td class="credit">20cr</td><td class="lead-time">3営業日</td><td class="note-cell"></td></tr>
-              <tr class="row-included"><td></td><td class="item">投稿クリエイティブ</td><td class="credit">20cr</td><td class="lead-time">3営業日</td><td class="note-cell"></td></tr>
-              <tr class="row-included"><td></td><td class="item">バナー制作</td><td class="credit">30cr</td><td class="lead-time">5営業日</td><td class="note-cell"></td></tr>
-              <tr class="row-included"><td></td><td class="item">片面チラシA4(パンフレット含む)</td><td class="credit">30cr</td><td class="lead-time">5営業日</td><td class="note-cell"></td></tr>
-              <tr class="row-included"><td><span class="cat">資料</span></td><td class="item">営業資料、提案資料などの資料作成</td><td class="credit">1P／10cr</td><td class="lead-time">5営業日</td><td class="note-cell"></td></tr>
-              <tr class="row-included"><td></td><td class="item">既存営業資料の軽修正</td><td class="credit">20cr</td><td class="lead-time">3営業日</td><td class="note-cell"></td></tr>
-              <tr class="row-included"><td></td><td class="item">会社案内の軽修正</td><td class="credit">20cr</td><td class="lead-time">3営業日</td><td class="note-cell"></td></tr>
-              <tr class="row-included"><td><span class="cat">デザイン</span></td><td class="item">ノベルティデザイン/発注</td><td class="credit">50cr</td><td class="lead-time">5営業日</td><td class="note-cell">物の金額は別途請求</td></tr>
-              <tr class="row-included"><td></td><td class="item">名刺デザイン制作</td><td class="credit">50cr</td><td class="lead-time">5営業日</td><td class="note-cell">物の金額は別途請求</td></tr>
-              <tr class="row-included"><td></td><td class="item">ロゴ開発</td><td class="credit">70cr</td><td class="lead-time">5営業日</td><td class="note-cell"></td></tr>
-              <tr class="row-included diff-standard"><td><span class="cat">Web</span></td><td class="item">弊社作成のHP/LPの軽微修正</td><td class="credit">20cr</td><td class="lead-time">3営業日</td><td class="note-cell">小規模のみ/弊社作成分のみ</td></tr>
-              <tr class="row-included diff-standard"><td></td><td class="item">導線修正</td><td class="credit">40cr</td><td class="lead-time">5営業日</td><td class="note-cell"></td></tr>
-              <tr class="row-included diff-standard"><td></td><td class="item">画像差し替え</td><td class="credit">10cr</td><td class="lead-time">3営業日</td><td class="note-cell"></td></tr>
-              <tr class="row-included diff-standard"><td></td><td class="item">テキスト修正</td><td class="credit">10cr</td><td class="lead-time">3営業日</td><td class="note-cell"></td></tr>
-              <tr class="row-included diff-standard"><td><span class="cat">運用</span></td><td class="item">月次の発信テーマ整理</td><td class="credit">10cr</td><td class="lead-time">3営業日</td><td class="note-cell"></td></tr>
-              <tr class="row-included diff-standard"><td></td><td class="item">投稿テーマ相談</td><td class="credit">10cr</td><td class="lead-time">3営業日</td><td class="note-cell"></td></tr>
-              <tr class="row-included diff-standard"><td></td><td class="item">運用上の軽相談</td><td class="credit">10cr</td><td class="lead-time">3営業日</td><td class="note-cell"></td></tr>
-              <tr class="row-included"><td><span class="cat">修正</span></td><td class="item">各種制作物の修正</td><td class="credit">5cr</td><td class="lead-time">2営業日</td><td class="note-cell">2回まで無料。3回目から5cr。</td></tr>
-              <tr class="row-included"><td><span class="cat">特急</span></td><td class="item">納期短縮</td><td class="credit">標準納期より-1日/10cr</td><td class="lead-time">2営業日</td><td class="note-cell"></td></tr>
-              <tr class="section-row opt"><td colspan="5">オプション（別料金）</td></tr>
-              <tr class="row-option"><td><span class="cat">動画</span></td><td class="item">撮影</td><td class="credit">都度お見積り</td><td class="lead-time">内容により変動</td><td class="note-cell"></td></tr>
-              <tr class="row-option"><td></td><td class="item">ドローン撮影</td><td class="credit">都度見積</td><td class="lead-time">内容により変動</td><td class="note-cell"></td></tr>
-              <tr class="row-option"><td></td><td class="item">PR動画の新規企画制作</td><td class="credit">都度見積</td><td class="lead-time">内容により変動</td><td class="note-cell"></td></tr>
-              <tr class="row-option"><td></td><td class="item">長尺動画</td><td class="credit">都度見積</td><td class="lead-time">内容により変動</td><td class="note-cell"></td></tr>
-              <tr class="row-option"><td></td><td class="item">採用動画制作</td><td class="credit">都度見積</td><td class="lead-time">内容により変動</td><td class="note-cell"></td></tr>
-              <tr class="row-option"><td></td><td class="item">CM制作</td><td class="credit">都度見積</td><td class="lead-time">内容により変動</td><td class="note-cell"></td></tr>
-              <tr class="row-option"><td><span class="cat">Web</span></td><td class="item">新規LP制作</td><td class="credit">都度見積</td><td class="lead-time">内容により変動</td><td class="note-cell"></td></tr>
-              <tr class="row-option"><td></td><td class="item">新規サイト制作</td><td class="credit">都度見積</td><td class="lead-time">内容により変動</td><td class="note-cell"></td></tr>
-              <tr class="row-option"><td></td><td class="item">全面リニューアル</td><td class="credit">都度見積</td><td class="lead-time">内容により変動</td><td class="note-cell"></td></tr>
-              <tr class="row-option"><td><span class="cat">運用</span></td><td class="item">広告運用</td><td class="credit">都度見積</td><td class="lead-time">内容により変動</td><td class="note-cell"></td></tr>
-              <tr class="row-option"><td></td><td class="item">SNS運用代行</td><td class="credit">都度見積</td><td class="lead-time">内容により変動</td><td class="note-cell"></td></tr>
-              <tr class="row-option"><td></td><td class="item">コメント返信対応</td><td class="credit">都度見積</td><td class="lead-time">内容により変動</td><td class="note-cell"></td></tr>
-              <tr class="row-option"><td></td><td class="item">詳細分析レポート</td><td class="credit">都度見積</td><td class="lead-time">内容により変動</td><td class="note-cell"></td></tr>
-              <tr class="row-option"><td><span class="cat">戦略</span></td><td class="item">採用戦略設計</td><td class="credit">都度見積</td><td class="lead-time">内容により変動</td><td class="note-cell"></td></tr>
-              <tr class="row-option"><td></td><td class="item">広報戦略設計</td><td class="credit">都度見積</td><td class="lead-time">内容により変動</td><td class="note-cell"></td></tr>
-              <tr class="row-option"><td><span class="cat">技術</span></td><td class="item">システム開発</td><td class="credit">都度見積</td><td class="lead-time">内容により変動</td><td class="note-cell"></td></tr>
-              <tr class="row-option"><td></td><td class="item">複雑な実装</td><td class="credit">都度見積</td><td class="lead-time">内容により変動</td><td class="note-cell"></td></tr>
-              <tr class="row-option"><td></td><td class="item">保守契約レベルの作業</td><td class="credit">都度見積</td><td class="lead-time">内容により変動</td><td class="note-cell"></td></tr>
+              <tr><td><span class="cat">動画</span></td><td class="item">ショート動画編集</td><td class="v cr">40cr</td><td class="v cr">40cr</td><td class="v cr">40cr</td><td class="v cr">40cr</td><td class="note-cell">素材支給前提</td></tr>
+              <tr><td></td><td class="item">動画の切り抜き・再編集</td><td class="v cr">40cr</td><td class="v cr">40cr</td><td class="v cr">40cr</td><td class="v cr">40cr</td><td class="note-cell"></td></tr>
+              <tr><td></td><td class="item">テロップ挿入</td><td class="v cr">10cr</td><td class="v cr">10cr</td><td class="v cr">10cr</td><td class="v cr">10cr</td><td class="note-cell"></td></tr>
+              <tr><td></td><td class="item">ショート動画作成（撮影・編集込）</td><td class="v na">—</td><td class="v na">—</td><td class="v cr">80cr</td><td class="v na">—</td><td class="note-cell">交通費別途</td></tr>
+              <tr><td></td><td class="item">撮影</td><td class="v quote">都度見積</td><td class="v quote">都度見積</td><td class="v quote">都度見積</td><td class="v quote">都度見積</td><td class="note-cell"></td></tr>
+              <tr><td></td><td class="item">ドローン撮影</td><td class="v quote">都度見積</td><td class="v quote">都度見積</td><td class="v quote">都度見積</td><td class="v quote">都度見積</td><td class="note-cell"></td></tr>
+              <tr><td></td><td class="item">PR動画の新規企画制作</td><td class="v quote">都度見積</td><td class="v quote">都度見積</td><td class="v quote">都度見積</td><td class="v quote">都度見積</td><td class="note-cell"></td></tr>
+              <tr><td></td><td class="item">長尺動画</td><td class="v quote">都度見積</td><td class="v quote">都度見積</td><td class="v quote">都度見積</td><td class="v quote">都度見積</td><td class="note-cell"></td></tr>
+              <tr><td></td><td class="item">採用動画制作</td><td class="v quote">都度見積</td><td class="v quote">都度見積</td><td class="v quote">都度見積</td><td class="v quote">都度見積</td><td class="note-cell"></td></tr>
+              <tr><td></td><td class="item">CM制作</td><td class="v quote">都度見積</td><td class="v quote">都度見積</td><td class="v quote">都度見積</td><td class="v quote">都度見積</td><td class="note-cell"></td></tr>
+              <tr><td><span class="cat">画像</span></td><td class="item">SNS画像制作/動画用サムネイル</td><td class="v cr">20cr</td><td class="v cr">20cr</td><td class="v cr">20cr</td><td class="v cr">20cr</td><td class="note-cell"></td></tr>
+              <tr><td></td><td class="item">投稿クリエイティブ</td><td class="v cr">20cr</td><td class="v cr">20cr</td><td class="v cr">20cr</td><td class="v cr">20cr</td><td class="note-cell"></td></tr>
+              <tr><td></td><td class="item">バナー制作</td><td class="v cr">30cr</td><td class="v cr">30cr</td><td class="v cr">30cr</td><td class="v cr">30cr</td><td class="note-cell"></td></tr>
+              <tr><td></td><td class="item">片面チラシA4(パンフレット含む)</td><td class="v cr">30cr</td><td class="v cr">30cr</td><td class="v cr">30cr</td><td class="v cr">30cr</td><td class="note-cell"></td></tr>
+              <tr><td><span class="cat">資料</span></td><td class="item">営業資料、提案資料などの資料作成</td><td class="v cr">1P／10cr</td><td class="v cr">1P／10cr</td><td class="v cr">1P／10cr</td><td class="v cr">1P／10cr</td><td class="note-cell"></td></tr>
+              <tr><td></td><td class="item">既存営業資料の軽修正</td><td class="v cr">20cr</td><td class="v cr">20cr</td><td class="v cr">20cr</td><td class="v cr">20cr</td><td class="note-cell"></td></tr>
+              <tr><td></td><td class="item">会社案内の軽修正</td><td class="v cr">20cr</td><td class="v cr">20cr</td><td class="v cr">20cr</td><td class="v cr">20cr</td><td class="note-cell"></td></tr>
+              <tr><td><span class="cat">デザイン</span></td><td class="item">ノベルティデザイン/発注</td><td class="v cr">50cr</td><td class="v cr">50cr</td><td class="v cr">50cr</td><td class="v cr">50cr</td><td class="note-cell">物の金額は別途請求</td></tr>
+              <tr><td></td><td class="item">名刺デザイン制作</td><td class="v cr">50cr</td><td class="v cr">50cr</td><td class="v cr">50cr</td><td class="v cr">50cr</td><td class="note-cell">物の金額は別途請求</td></tr>
+              <tr><td></td><td class="item">ロゴ開発</td><td class="v cr">70cr</td><td class="v cr">70cr</td><td class="v cr">70cr</td><td class="v cr">70cr</td><td class="note-cell"></td></tr>
+              <tr><td><span class="cat">Web</span></td><td class="item">弊社作成のHP/LPの軽微修正</td><td class="v na">—</td><td class="v cr">20cr</td><td class="v cr">20cr</td><td class="v cr">20cr</td><td class="note-cell">小規模のみ/弊社作成分のみ</td></tr>
+              <tr><td></td><td class="item">導線修正</td><td class="v na">—</td><td class="v cr">40cr</td><td class="v cr">40cr</td><td class="v cr">40cr</td><td class="note-cell"></td></tr>
+              <tr><td></td><td class="item">画像差し替え</td><td class="v na">—</td><td class="v cr">10cr</td><td class="v cr">10cr</td><td class="v cr">10cr</td><td class="note-cell"></td></tr>
+              <tr><td></td><td class="item">テキスト修正</td><td class="v na">—</td><td class="v cr">10cr</td><td class="v cr">10cr</td><td class="v cr">10cr</td><td class="note-cell"></td></tr>
+              <tr><td></td><td class="item">新規LP制作</td><td class="v quote">都度見積</td><td class="v quote">都度見積</td><td class="v quote">都度見積</td><td class="v quote">都度見積</td><td class="note-cell"></td></tr>
+              <tr><td></td><td class="item">新規サイト制作</td><td class="v quote">都度見積</td><td class="v quote">都度見積</td><td class="v quote">都度見積</td><td class="v quote">都度見積</td><td class="note-cell"></td></tr>
+              <tr><td></td><td class="item">全面リニューアル</td><td class="v quote">都度見積</td><td class="v quote">都度見積</td><td class="v quote">都度見積</td><td class="v quote">都度見積</td><td class="note-cell"></td></tr>
+              <tr><td><span class="cat">運用</span></td><td class="item">月次の発信テーマ整理</td><td class="v na">—</td><td class="v cr">10cr</td><td class="v na">—</td><td class="v cr">10cr</td><td class="note-cell"></td></tr>
+              <tr><td></td><td class="item">投稿テーマ相談</td><td class="v na">—</td><td class="v cr">10cr</td><td class="v na">—</td><td class="v cr">10cr</td><td class="note-cell"></td></tr>
+              <tr><td></td><td class="item">運用上の軽相談</td><td class="v na">—</td><td class="v cr">10cr</td><td class="v na">—</td><td class="v cr">10cr</td><td class="note-cell"></td></tr>
+              <tr><td></td><td class="item">広告運用</td><td class="v quote">都度見積</td><td class="v quote">都度見積</td><td class="v cr">30cr</td><td class="v quote">都度見積</td><td class="note-cell"></td></tr>
+              <tr><td></td><td class="item">SNS運用代行</td><td class="v quote">都度見積</td><td class="v quote">都度見積</td><td class="v cr">1SNSにつき月50cr</td><td class="v quote">都度見積</td><td class="note-cell"></td></tr>
+              <tr><td></td><td class="item">コメント返信対応</td><td class="v quote">都度見積</td><td class="v quote">都度見積</td><td class="v cr">1SNSにつき月50cr</td><td class="v quote">都度見積</td><td class="note-cell"></td></tr>
+              <tr><td></td><td class="item">詳細分析レポート</td><td class="v quote">都度見積</td><td class="v quote">都度見積</td><td class="v cr">1SNSにつき月50cr</td><td class="v quote">都度見積</td><td class="note-cell"></td></tr>
+              <tr><td><span class="cat">戦略</span></td><td class="item">採用戦略設計</td><td class="v quote">都度見積</td><td class="v quote">都度見積</td><td class="v cr">1SNSにつき月50cr</td><td class="v quote">都度見積</td><td class="note-cell"></td></tr>
+              <tr><td></td><td class="item">広報戦略設計</td><td class="v quote">都度見積</td><td class="v quote">都度見積</td><td class="v cr">1SNSにつき月50cr</td><td class="v quote">都度見積</td><td class="note-cell"></td></tr>
+              <tr><td><span class="cat">技術</span></td><td class="item">システム開発</td><td class="v quote">都度見積</td><td class="v quote">都度見積</td><td class="v quote">都度見積</td><td class="v quote">都度見積</td><td class="note-cell"></td></tr>
+              <tr><td></td><td class="item">複雑な実装</td><td class="v quote">都度見積</td><td class="v quote">都度見積</td><td class="v quote">都度見積</td><td class="v quote">都度見積</td><td class="note-cell"></td></tr>
+              <tr><td></td><td class="item">保守契約レベルの作業</td><td class="v quote">都度見積</td><td class="v quote">都度見積</td><td class="v quote">都度見積</td><td class="v quote">都度見積</td><td class="note-cell"></td></tr>
+              <tr><td><span class="cat">修正</span></td><td class="item">各種制作物の修正</td><td class="v cr">5cr</td><td class="v cr">5cr</td><td class="v cr">5cr</td><td class="v cr">5cr</td><td class="note-cell">2回まで無料。3回目から5cr</td></tr>
+              <tr><td><span class="cat">特急</span></td><td class="item">納期短縮</td><td class="v cr">標準納期より-1日/10cr</td><td class="v cr">標準納期より-1日/10cr</td><td class="v cr">標準納期より-1日/10cr</td><td class="v cr">標準納期より-1日/10cr</td><td class="note-cell"></td></tr>
             </tbody>
           </table>
           </div>
-          <div class="scope-legend"><span><span class="dot standard"></span>ライトプランにはない対応（スタンダードから追加）</span></div>
           <p class="scope-rule"><strong>線引きの目安：</strong>更新・修正・小規模制作は月額内、新規制作・重い案件・撮影・運用代行は別料金となります。</p>
-        </div>
-      </div>
-    </section>
 
     <div class="ctaband">
       <p>プランの選び方に迷ったら、まずは無料相談でご相談ください。</p>

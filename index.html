@@ -422,6 +422,7 @@
   .works-grid{ margin-top:36px; display:grid; grid-template-columns:repeat(3,1fr); gap:18px; }
   @media (max-width:820px){ .works-grid{ grid-template-columns:1fr; } }
   .work-thumb{ aspect-ratio:4/3; border-radius:14px 14px 0 0; background:linear-gradient(135deg, var(--ink-3), var(--ink-2)); display:flex; align-items:center; justify-content:center; color:var(--text-dim); font-size:13.5px; font-family:var(--font-num); }
+  video.work-thumb{ width:100%; object-fit:cover; display:block; }
   .work-card{ border:1px solid rgba(255,255,255,0.1); border-radius:14px; overflow:hidden; background:var(--ink-2); }
   .work-body{ padding:18px 20px; }
   .work-body .t{ font-weight:700; font-size:16px; }
@@ -545,7 +546,7 @@
             <span class="badge"><span class="dot"></span>建設関連出身スタッフが伴走</span>
           </div>
           <p class="hook reveal">現場の腕は、もう一流。<br class="hook-br">あとは、伝え方だけ。</p>
-          <h1><span class="line">現場の実力を、</span><span class="line">選ばれる<span class="grad-text live">発信</span>に。</span></h1>
+          <h1><span class="line">建築 × 映像 × デザイン ×</span><span class="line"><span class="grad-text live">テクノロジー</span>。</span></h1>
           <span class="headline-bar"></span>
           <p class="sub">建設関連出身のチームが、現場・図面・施工プロセスを<br>正しく魅力的に翻訳します。<br>動画・画像・LP/HP修正・採用発信を、<strong>窓口ひとつ</strong>で継続的に。</p>
           <div class="cta-row">
@@ -621,9 +622,9 @@
   <section id="concept">
     <div class="wrap">
       <span class="eyebrow">Concept</span>
-      <blockquote class="reveal tilt" data-tilt-base="-1.2" style="margin-top:18px;">動画会社が、<span class="grad-text live">動画起点</span>で発信支援を月額化する。</blockquote>
+      <blockquote class="reveal tilt" data-tilt-base="-1.2" style="margin-top:18px;">動画会社が、発信支援を月額化する。</blockquote>
       <p class="lead">建築知識のある制作陣だからこそ、現場・図面・施工プロセスを正しく魅力的に翻訳できる。<br>現状の課題を一緒に見つけ出し、解決のためのアプローチを提案。制作から実行まで、伴走します。</p>
-      <p class="cite"><img class="logo-img" style="display:inline; height:13px; vertical-align:-2px;" src="data:image/png;base64,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" alt="KUSABI"> ── 建築・建設業向け 動画起点の月額発信伴走サービス</p>
+      <p class="cite"><img class="logo-img" style="display:inline; height:13px; vertical-align:-2px;" src="data:image/png;base64,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" alt="KUSABI"> ── 建築・建設業向け 月額発信伴走サービス</p>
     </div>
   </section>
 
@@ -654,7 +655,7 @@
   <section id="how">
     <div class="wrap">
       <span class="eyebrow">How it works</span>
-      <h2 class="head" style="margin-top:14px;">プラン × クレジット × 月次ミーティング</h2>
+      <h2 class="head" style="margin-top:14px;">定額で、柔軟で、迷わない。</h2>
       <div class="plan-grid">
         <div class="glow-card reveal tilt"><div class="glow-card-inner plan-card">
           <span class="plan-num grad-text">01</span>
@@ -678,102 +679,6 @@
         <p>まずは現状のヒアリングから、気軽にご相談ください。</p>
         <div class="btns">
           <a class="pill pill-solid pill-sm" href="contact.html">無料相談を予約する <span class="arrow">›</span></a>
-          <a class="pill pill-outline pill-sm" href="contact.html?interest=doc">資料だけ見る</a>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section id="usecase">
-    <div class="wrap">
-      <span class="eyebrow">映像活用の効果</span>
-      <h2 class="head" style="margin-top:14px;">1本の動画が、会社の様々な場面で効いてくる。</h2>
-      <p class="lead">建築・建設業の日常業務にひもづけると、映像がどこでコストを削減し、<br>どこで機会を増やすかが具体的に見えてきます。</p>
-
-      <div class="row-table">
-        <div class="r"><div class="c name">活用領域</div><div class="c">現状の課題</div><div class="c">映像活用による効果</div></div>
-        <div class="r"><div class="c name">アフターメンテナンス</div><div class="c before">顧客からの問い合わせ対応に人件費がかかる</div><div class="c after">FAQ・設備使用方法を映像マニュアル化し自己解決率を向上</div></div>
-        <div class="r"><div class="c name">紹介営業（リファラル）</div><div class="c before">紹介内容が口頭頼みでバラつきがある</div><div class="c after">スマホで見せられる紹介用ツールとして標準化</div></div>
-        <div class="r"><div class="c name">採用・採用ブランディング</div><div class="c before">求人票だけでは社風や現場の空気感が伝わらない</div><div class="c after">入社前のミスマッチを防止し早期離職を削減</div></div>
-        <div class="r"><div class="c name">商談前の事前共有</div><div class="c before">対面説明に時間がかかる</div><div class="c after">商談前に映像で基礎知識を補完し成約までのスピードアップ</div></div>
-        <div class="r"><div class="c name">流入チャネル増</div><div class="c before">オフライン営業の限界</div><div class="c after">オンラインでの営業を標準化し効率化および流入増</div></div>
-      </div>
-
-      <div class="subhead">
-        <span class="eyebrow">具体的な施策例</span>
-        <h3 style="margin-top:10px;">既存の発信手段を、映像で強化する</h3>
-      </div>
-      <div class="row-table">
-        <div class="r"><div class="c name">手段</div><div class="c">現状の課題</div><div class="c">映像による補完効果</div></div>
-        <div class="r"><div class="c name">自社HP</div><div class="c before">「確認用」の媒体として定着し、意思決定の決め手になりにくい</div><div class="c after">トップに映像を用いることで瞬時に世界観を伝え、離脱率を低下させる</div></div>
-        <div class="r"><div class="c name">SNS（写真）</div><div class="c before">認知は取れるが、人柄や施工の中身が伝わりにくい</div><div class="c after">現場の活気や職人のこだわりなど「動的な信頼」を可視化</div></div>
-        <div class="r"><div class="c name">ポータルサイト</div><div class="c before">価格競争や相見積もりが避けにくい</div><div class="c after">独自のストーリーを提示し、価格以外の選定軸を構築</div></div>
-        <div class="r"><div class="c name">チラシ・広告</div><div class="c before">若年層への到達率が低下し、費用対効果が悪化</div><div class="c after">動画広告でターゲットへ直接訴求</div></div>
-      </div>
-
-      <div class="subhead">
-        <span class="eyebrow">コンテンツ例</span>
-      </div>
-      <div class="chip-row">
-        <span class="chip">施工事例のBefore/After動画</span>
-        <span class="chip">現場密着ドキュメンタリー</span>
-        <span class="chip">職人インタビュー</span>
-        <span class="chip">完成お披露目ムービー</span>
-        <span class="chip">採用向け一日密着</span>
-        <span class="chip">ドローン空撮による現場全景</span>
-        <span class="chip">3Dパース×完成予想動画</span>
-      </div>
-    </div>
-  </section>
-
-  <section id="roi">
-    <div class="wrap">
-      <span class="eyebrow">ROI</span>
-      <h2 class="head" style="margin-top:14px;">動画は、経費ではなく投資です。</h2>
-      <p class="lead">年間成約8棟規模の工務店を想定したモデルケースで試算すると、投資対効果はこのようになります。</p>
-
-      <div class="row-table roi-table">
-        <div class="r"><div class="c name">項目</div><div class="c">導入前</div><div class="c">導入後（想定）</div><div class="c change">変化</div></div>
-        <div class="r"><div class="c name">月間問い合わせ件数</div><div class="c">約4〜5件</div><div class="c">約5〜6件</div><div class="c change">＋15%</div></div>
-        <div class="r"><div class="c name">年間問い合わせ件数</div><div class="c">53件</div><div class="c">61件</div><div class="c change">＋8件</div></div>
-        <div class="r"><div class="c name">成約率（問い合わせ→契約）</div><div class="c">15%</div><div class="c">16%</div><div class="c change">＋1%</div></div>
-        <div class="r"><div class="c name">年間成約数</div><div class="c">8件</div><div class="c">10件</div><div class="c change">＋2件</div></div>
-        <div class="r"><div class="c name">年間粗利（4,000万円×25%×件数）</div><div class="c">8,000万円</div><div class="c">1億円</div><div class="c change">＋2,000万円</div></div>
-        <div class="r"><div class="c name">年間マーケティングコスト</div><div class="c">ー</div><div class="c">480万円</div><div class="c change">ー</div></div>
-        <div class="r"><div class="c name">年間純利益（追加分）</div><div class="c">ー</div><div class="c">1,520万円</div><div class="c change">ー</div></div>
-      </div>
-
-      <div class="glow-card roi-callout reveal tilt">
-        <div class="glow-card-inner">
-          <span class="eyebrow">ROI</span>
-          <div class="roi-num grad-text live">約317%</div>
-          <p>年間マーケティングコスト480万円に対し、追加の純利益は約1,520万円という試算です。動画は「発信のための経費」ではなく、「選ばれるための投資」と捉えられます。</p>
-        </div>
-      </div>
-
-      <p class="plan-note">※年間成約8棟規模の工務店を想定したモデルケースによる試算です。実際の効果を保証するものではなく、貴社の状況により変動します。</p>
-    </div>
-  </section>
-
-  <section id="target">
-    <div class="wrap">
-      <span class="eyebrow">Casting / 対象企業</span>
-      <h2 class="head" style="margin-top:14px;">こんな会社に向いています</h2>
-      <p class="lead">工務店・ゼネコン・地域密着型建設会社の中でも、特に次のような会社様に選ばれています。</p>
-      <div class="cast glow-card reveal tilt">
-        <div class="glow-card-inner">
-          <div class="cast-persona">
-            <span class="k">主なご担当者</span>
-            <span class="v">工務店の社長、またはゼネコンの広報・総務担当</span>
-          </div>
-          <ul class="cast-checklist">
-            <li>施工事例や現場写真はあるが、編集・発信まで手が回っていない</li>
-            <li>現場の質には自信があるが、外部への発信は後回しになりがち</li>
-            <li>若手・職人の採用向け発信が弱く、応募が集まらない</li>
-            <li>広報の専任担当がおらず、依頼先も都度バラバラ</li>
-            <li>単発の外注ではなく、継続的に伴走してくれる相手を探している</li>
-            <li>動画をきっかけに、SNS・HP・採用まで発信全体を強化したい</li>
-          </ul>
         </div>
       </div>
     </div>
@@ -885,6 +790,99 @@
     </div>
   </section>
 
+  <section id="usecase">
+    <div class="wrap">
+      <span class="eyebrow">映像活用の効果</span>
+      <h2 class="head" style="margin-top:14px;">1本の動画が、会社の様々な場面で効いてくる。</h2>
+      <p class="lead">建築・建設業の日常業務にひもづけると、映像がどこでコストを削減し、<br>どこで機会を増やすかが具体的に見えてきます。</p>
+
+      <div class="row-table">
+        <div class="r"><div class="c name">活用領域</div><div class="c">現状の課題</div><div class="c">映像活用による効果</div></div>
+        <div class="r"><div class="c name">アフターメンテナンス</div><div class="c before">顧客からの問い合わせ対応に人件費がかかる</div><div class="c after">FAQ・設備使用方法を映像マニュアル化し自己解決率を向上</div></div>
+        <div class="r"><div class="c name">紹介営業（リファラル）</div><div class="c before">紹介内容が口頭頼みでバラつきがある</div><div class="c after">スマホで見せられる紹介用ツールとして標準化</div></div>
+        <div class="r"><div class="c name">採用・採用ブランディング</div><div class="c before">求人票だけでは社風や現場の空気感が伝わらない</div><div class="c after">入社前のミスマッチを防止し早期離職を削減</div></div>
+        <div class="r"><div class="c name">商談前の事前共有</div><div class="c before">対面説明に時間がかかる</div><div class="c after">商談前に映像で基礎知識を補完し成約までのスピードアップ</div></div>
+        <div class="r"><div class="c name">流入チャネル増</div><div class="c before">オフライン営業の限界</div><div class="c after">オンラインでの営業を標準化し効率化および流入増</div></div>
+      </div>
+
+      <div class="subhead">
+        <span class="eyebrow">具体的な施策例</span>
+        <h3 style="margin-top:10px;">既存の発信手段を、映像で強化する</h3>
+      </div>
+      <div class="row-table">
+        <div class="r"><div class="c name">手段</div><div class="c">現状の課題</div><div class="c">映像による補完効果</div></div>
+        <div class="r"><div class="c name">自社HP</div><div class="c before">「確認用」の媒体として定着し、意思決定の決め手になりにくい</div><div class="c after">トップに映像を用いることで瞬時に世界観を伝え、離脱率を低下させる</div></div>
+        <div class="r"><div class="c name">SNS（写真）</div><div class="c before">認知は取れるが、人柄や施工の中身が伝わりにくい</div><div class="c after">現場の活気や職人のこだわりなど「動的な信頼」を可視化</div></div>
+        <div class="r"><div class="c name">ポータルサイト</div><div class="c before">価格競争や相見積もりが避けにくい</div><div class="c after">独自のストーリーを提示し、価格以外の選定軸を構築</div></div>
+        <div class="r"><div class="c name">チラシ・広告</div><div class="c before">若年層への到達率が低下し、費用対効果が悪化</div><div class="c after">動画広告でターゲットへ直接訴求</div></div>
+      </div>
+
+      <div class="subhead">
+        <span class="eyebrow">コンテンツ例</span>
+      </div>
+      <div class="chip-row">
+        <span class="chip">施工事例のBefore/After動画</span>
+        <span class="chip">現場密着ドキュメンタリー</span>
+        <span class="chip">職人インタビュー</span>
+        <span class="chip">完成お披露目ムービー</span>
+        <span class="chip">採用向け一日密着</span>
+        <span class="chip">ドローン空撮による現場全景</span>
+        <span class="chip">3Dパース×完成予想動画</span>
+      </div>
+    </div>
+  </section>
+
+  <section id="roi">
+    <div class="wrap">
+      <span class="eyebrow">ROI</span>
+      <h2 class="head" style="margin-top:14px;">動画は、経費ではなく投資です。</h2>
+      <p class="lead">年間成約8棟規模の工務店を想定したモデルケースで試算すると、投資対効果はこのようになります。</p>
+
+      <div class="row-table roi-table">
+        <div class="r"><div class="c name">項目</div><div class="c">導入前</div><div class="c">導入後（想定）</div><div class="c change">変化</div></div>
+        <div class="r"><div class="c name">年間問い合わせ件数</div><div class="c">53件</div><div class="c">61件</div><div class="c change">＋8件</div></div>
+        <div class="r"><div class="c name">年間成約数</div><div class="c">8件</div><div class="c">10件</div><div class="c change">＋2件</div></div>
+        <div class="r"><div class="c name">年間粗利（4,000万円×25%×件数）</div><div class="c">8,000万円</div><div class="c">1億円</div><div class="c change">＋2,000万円</div></div>
+        <div class="r"><div class="c name">年間マーケティングコスト</div><div class="c">ー</div><div class="c">480万円</div><div class="c change">ー</div></div>
+        <div class="r"><div class="c name">年間純利益（追加分）</div><div class="c">ー</div><div class="c">1,520万円</div><div class="c change">ー</div></div>
+      </div>
+
+      <div class="glow-card roi-callout reveal tilt">
+        <div class="glow-card-inner">
+          <span class="eyebrow">ROI</span>
+          <div class="roi-num grad-text live">約317%</div>
+          <p>年間マーケティングコスト480万円に対し、追加の純利益は約1,520万円という試算です。動画は「発信のための経費」ではなく、「選ばれるための投資」と捉えられます。</p>
+        </div>
+      </div>
+
+      <p class="plan-note">※年間成約8棟規模の工務店を想定したモデルケースによる試算です。実際の効果を保証するものではなく、貴社の状況により変動します。</p>
+    </div>
+  </section>
+
+  <section id="target">
+    <div class="wrap">
+      <span class="eyebrow">Casting / 対象企業</span>
+      <h2 class="head" style="margin-top:14px;">こんな会社に向いています</h2>
+      <p class="lead">工務店・ゼネコン・地域密着型建設会社の中でも、特に次のような会社様に選ばれています。</p>
+      <div class="cast glow-card reveal tilt">
+        <div class="glow-card-inner">
+          <div class="cast-persona">
+            <span class="k">主なご担当者</span>
+            <span class="v">工務店の社長、またはゼネコンの広報・総務担当</span>
+          </div>
+          <ul class="cast-checklist">
+            <li>施工事例や現場写真はあるが、編集・発信まで手が回っていない</li>
+            <li>現場の質には自信があるが、外部への発信は後回しになりがち</li>
+            <li>若手・職人の採用向け発信が弱く、応募が集まらない</li>
+            <li>広報の専任担当がおらず、依頼先も都度バラバラ</li>
+            <li>単発の外注ではなく、継続的に伴走してくれる相手を探している</li>
+            <li>動画をきっかけに、SNS・HP・採用まで発信全体を強化したい</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <section id="plans">
     <div class="wrap">
       <span class="eyebrow">Plan</span>
@@ -980,37 +978,32 @@
           </div>
         </div>
         <div class="work-card reveal tilt">
+          <video class="work-thumb" src="videos/works-a1.mp4" controls preload="metadata" playsinline></video>
+          <div class="work-body">
+            <div class="t">A社 様</div>
+            <div class="d">HP掲載動画</div>
+          </div>
+        </div>
+        <div class="work-card reveal tilt">
+          <video class="work-thumb" src="videos/works-a2.mp4" controls preload="metadata" playsinline></video>
+          <div class="work-body">
+            <div class="t">A社 様</div>
+            <div class="d">HP掲載動画（Ver.2）</div>
+          </div>
+        </div>
+        <div class="work-card reveal tilt">
+          <video class="work-thumb" src="videos/works-b.mp4" controls preload="metadata" playsinline></video>
+          <div class="work-body">
+            <div class="t">B社 様</div>
+            <div class="d">会社紹介動画</div>
+          </div>
+        </div>
+        <div class="work-card reveal tilt">
           <div class="work-thumb">実績追加予定</div>
           <div class="work-body"><div class="t">実績を追加予定</div><div class="d">今後の制作物を随時掲載</div></div>
         </div>
       </div>
       <p class="plan-note">※実際の画像・動画サムネイルに差し替えてご利用ください。</p>
-    </div>
-  </section>
-
-  <section id="benefit">
-    <div class="wrap">
-      <span class="eyebrow">Benefit</span>
-      <h2 class="head" style="margin-top:14px;">広報社員と営業マン、<br>一石二鳥。</h2>
-      <p class="lead">このサービスを導入することは、広報担当を一人雇うことであり、同時に新規流入を生む営業担当を一人雇うことでもあります。</p>
-      <div class="benefit-grid">
-        <div class="glow-card reveal tilt"><div class="glow-card-inner">
-          <h3 style="font-family:var(--font-disp); font-weight:700; font-size:19px;">選ばれる理由</h3>
-          <ul>
-            <li>動画・画像・LP/HP修正・採用発信を、窓口ひとつで継続的に回せる</li>
-            <li>都度の見積もり・都度の説明が不要になる</li>
-            <li>建築知識があるから、他の発信物にも一貫性が生まれる</li>
-          </ul>
-        </div></div>
-        <div class="glow-card reveal tilt"><div class="glow-card-inner">
-          <h3 style="font-family:var(--font-disp); font-weight:700; font-size:19px;">続けられる理由</h3>
-          <ul>
-            <li>毎月はじめに方針を確定するので、進行がブレない</li>
-            <li>制作物ごとの基準が明確で、追加費用の不安が少ない</li>
-            <li>素材のご準備さえいただければ、あとはお任せいただける</li>
-          </ul>
-        </div></div>
-      </div>
     </div>
   </section>
 
@@ -1026,10 +1019,6 @@
         <details class="faq-item reveal">
           <summary>解約する場合の条件は？</summary>
           <div class="a">解約予定日の1ヶ月前までにSlackにてご連絡いただければ解約可能です。</div>
-        </details>
-        <details class="faq-item reveal">
-          <summary>素材（写真・動画・図面など）はどこまで準備すればいいですか？</summary>
-          <div class="a">最低限の素材（現場写真・図面など）をご準備いただければ、撮影から編集まで対応可能です。ドローン撮影を含む現地撮影のご依頼も可能です。</div>
         </details>
         <details class="faq-item reveal">
           <summary>追加費用が発生することはありますか？</summary>
@@ -1062,14 +1051,6 @@
         <div class="r"><div class="k">事業内容</div><div class="v">映像制作、ウェブサイト制作</div></div>
         <div class="r"><div class="k">対応エリア</div><div class="v">全国（相談・制作対応）／福岡県内（現地撮影）</div></div>
       </div>
-    </div>
-  </section>
-
-  <section id="closing">
-    <div class="wrap">
-      <span class="eyebrow">結論</span>
-      <p class="quote reveal">「良い仕事を、良い評判に。」<br>それを、<span class="u">毎月の仕組み</span>に。</p>
-      <p class="note">まずは30分、オンラインでご相談ください。現状のヒアリングからはじめます。</p>
     </div>
   </section>
 
